@@ -9,7 +9,4 @@ const pool = new Pool({
 });
 
 module.exports = pool;
-<<<<<<< HEAD
-//test message
-=======
->>>>>>> a18b68e69800ef7bab22a08660975902e3b63dbd
+
