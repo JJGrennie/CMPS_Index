@@ -1,0 +1,12 @@
+# Ignore Visual Studio files
+.vs/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore OS-specific files (Mac and Windows)
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
