@@ -11,9 +11,9 @@ app.use(cors({
 	origin: '*'
 }));
 
-app.get("/", (req, res)=> {
+app.get("/", (req, res) => {
 	res.send("Hello Point Park University");
-})
+});
 
 //API Route
 app.use("/api/v1/film", filmRoutes);
