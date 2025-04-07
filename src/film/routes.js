@@ -3,9 +3,17 @@ const controller = require('./controller');
 
 const router = Router();
 
-router.get('/filter/search', controller.getFilteredFilms);
-router.get('/:id', controller.getFilmById);
 router.get('/', controller.getFilm);
+router.get('/:id', controller.getFilmById);
+router.get('/filter/search', controller.getFilteredFilms);
+
+
+
+// Add a new film
+router.post('/', controller.addFilm);
+
+// Update an existing film by ID
+router.put('/:id', controller.updateFilm);
 
 
 

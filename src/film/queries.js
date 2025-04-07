@@ -18,9 +18,16 @@ const getFilteredFilms = (genre, year) => {
     return { query, values };
 };
 
+// Add a new film
+const addFilm = 'INSERT INTO filmtype (genre, movie, year) VALUES ($1, $2, $3) RETURNING *';
+
+// Update an existing film
+const updateFilm = 'UPDATE filmtype SET genre = $1, movie = $2, year = $3 WHERE id = $4 RETURNING *';
 
 module.exports = {
-	getFilm,
-	getFilmById,
+    getFilm,
+    getFilmById,
     getFilteredFilms,
+    addFilm,
+    updateFilm
 };
