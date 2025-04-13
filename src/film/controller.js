@@ -86,10 +86,22 @@ const updateFilm = (req, res) => {
     });
 };
 
+// New function to get distinct genres
+const getGenres = (req, res) => {
+    pool.query(queries.getDistinctGenres, (error, results) => {
+        if (error) {
+            console.error("Error fetching genres:", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        res.status(200).json(results.rows);
+    });
+};
+
 module.exports = {
     getFilm,
     getFilmById,
     getFilteredFilms,
     addFilm,
-    updateFilm
+    updateFilm,
+    getGenres,
 };
