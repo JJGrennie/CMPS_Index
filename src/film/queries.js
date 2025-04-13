@@ -25,13 +25,13 @@ const addFilm = 'INSERT INTO filmtype (genre, movie, year) VALUES ($1, $2, $3) R
 const updateFilm = 'UPDATE filmtype SET genre = $1, movie = $2, year = $3 WHERE id = $4 RETURNING *';
 
 // Get distinct genres
-const getDistinctGenres = "SELECT DISTINCT genre FROM film";
+const getDistinctGenres = "SELECT DISTINCT genre FROM filmtype";
 
 module.exports = {
     getFilm,
     getFilmById,
     getFilteredFilms,
     addFilm,
-    updateFilm
+    updateFilm,
     getDistinctGenres
 };
