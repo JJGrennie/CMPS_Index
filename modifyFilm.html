@@ -12,39 +12,87 @@
       <a href="modifyFilm.html">Change Film</a>
     </div>
 
-    <div class="container">
-      <div class="form-container">
-        <h2>Modify Film</h2>
-        <form class="form" id="modifyForm">
-          <div class="form-row">
-            <label for="id">Film ID:</label>
-            <input type="number" id="id" name="id" placeholder="Enter Film ID" required>
-          </div>
-          <div class="form-row">
-            <label for="genre">New Genre:</label>
-            <input type="text" id="genre" name="genre" placeholder="Enter New Genre">
-          </div>
-          <div class="form-row">
-            <label for="movie">New Movie Title:</label>
-            <input type="text" id="movie" name="movie" placeholder="Enter New Title">
-          </div>
-          <div class="form-row">
-            <label for="year">New Year:</label>
-            <input type="text" id="year" name="year" placeholder="Enter New Year">
-          </div>
-          <div class="button-container">
-            <button type="submit" class="submit-btn">Update</button>
-          </div>
-        </form>
-      </div>
+  <div class="container">
+    <div class="form-container">
+      <h2>Modify Film</h2>
+      <form class="form" id="modifyForm">
+        <div class="form-row">
+          <label for="id">Film ID:</label>
+          <input type="number" id="id" name="id" placeholder="Enter Film ID" required>
+        </div>
+        <div class="form-row">
+          <label for="genre">Genre:</label>
+          <select id="genre" name="genre" required onchange="loadFilmDataByGenre(this.value)">
+             <option value="">Select a genre</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="movie">New Movie Title:</label>
+          <input type="text" id="movie" name="movie" placeholder="Enter New Title">
+        </div>
+        <div class="form-row">
+          <label for="year">New Year:</label>
+          <input type="text" id="year" name="year" placeholder="Enter New Year">
+        </div>
+        <div class="button-container">
+          <button type="submit" class="submit-btn">Update</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Toast & jQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="/js/jquery/toaster.js"></script>
+  <!-- Toast & jQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="/js/jquery/toaster.js"></script>
 
-    <!-- JS to handle PUT request -->
-    <script src="./js/putFilm.js"></script>
-  </body>
+  <!-- JS to handle fetching and PUT request -->
+  <script src="./js/putFilm.js"></script>
+
+  <script>
+    // Populate genre dropdown from API
+    fetch('https://cmps-index.onrender.com/api/v1/film')
+      .then(res => res.json())
+      .then(films => {
+        const genres = new Set(films.map(f => f.genre));
+        const dropdown = document.getElementById('genre');
+        dropdown.innerHTML = '<option value="">Select a genre</option>';
+        genres.forEach(g => {
+          const option = document.createElement('option');
+          option.value = g;
+          option.textContent = g;
+          dropdown.appendChild(option);
+        });
+      })
+      .catch(err => {
+        console.error('Genre fetch error:', err);
+        document.getElementById('genre').innerHTML = '<option>Failed to load genres</option>';
+      });
+
+    // Load film details when genre is selected
+    document.getElementById('genre').addEventListener('change', event => {
+      const selectedGenre = event.target.value;
+      if (!selectedGenre) return;
+
+      fetch(`https://cmps-index.onrender.com/api/v1/film/filter/search?genre=${encodeURIComponent(selectedGenre)}`)
+        .then(res => res.json())
+        .then(films => {
+          if (films.length > 0) {
+            const film = films[0]; // Get the first film with this genre
+            document.getElementById('id').value = film.id;
+            document.getElementById('movie').value = film.movie;
+            document.getElementById('year').value = film.year;
+          } else {
+            alert('No films found for this genre.');
+          }
+        })
+        .catch(err => {
+          console.error('Film fetch error:', err);
+          alert('Error fetching film by genre.');
+        });
+    });
+  </script>
+
+  <script src="./js/putFilm.js"></script>
+</body>
 </html>
