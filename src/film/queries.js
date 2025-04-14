@@ -33,5 +33,5 @@ module.exports = {
     getFilteredFilms,
     addFilm,
     updateFilm,
-    getDistinctGenres
+    DistinctGenres
 };
