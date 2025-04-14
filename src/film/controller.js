@@ -86,8 +86,8 @@ const updateFilm = (req, res) => {
     });
 };
 
-// New function to get distinct genres
-const getGenres = (req, res) => {
+//  Updated name for clarity + to match query export
+const getDistinctGenres = (req, res) => {
     pool.query(queries.getDistinctGenres, (error, results) => {
         if (error) {
             console.error("Error fetching genres:", error);
@@ -103,5 +103,5 @@ module.exports = {
     getFilteredFilms,
     addFilm,
     updateFilm,
-    getGenres,
+    getDistinctGenres //  Exporting under new name
 };
