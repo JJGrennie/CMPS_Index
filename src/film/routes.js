@@ -15,8 +15,8 @@ router.post('/', controller.addFilm);
 // Update an existing film by ID
 router.put('/:id', controller.updateFilm);
 
-// New route for fetching distinct genres
-router.get('/genre', controller.getGenres);  
+ // Add this new route
+router.get('/genre', controller.getDistinctGenres);
 
 
 
