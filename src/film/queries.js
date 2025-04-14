@@ -1,5 +1,5 @@
 const getFilm = "SELECT * FROM filmtype";
-const getFilmById = "select * from filmtype WHERE Id = $1";
+const getFilmById = "SELECT * FROM filmtype WHERE Id = $1";
 
 const getFilteredFilms = (genre, year) => {
     let query = 'SELECT * FROM filmtype WHERE 1=1';
@@ -24,8 +24,8 @@ const addFilm = 'INSERT INTO filmtype (genre, movie, year) VALUES ($1, $2, $3) R
 // Update an existing film
 const updateFilm = 'UPDATE filmtype SET genre = $1, movie = $2, year = $3 WHERE id = $4 RETURNING *';
 
-// Get distinct genres
-const DistinctGenres = "SELECT DISTINCT genre FROM filmtype";
+// Renamed for clarity
+const getDistinctGenres = "SELECT DISTINCT genre FROM filmtype";
 
 module.exports = {
     getFilm,
@@ -33,5 +33,5 @@ module.exports = {
     getFilteredFilms,
     addFilm,
     updateFilm,
-    DistinctGenres
+    getDistinctGenres // exporting it with the right name
 };
