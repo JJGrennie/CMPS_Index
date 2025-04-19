@@ -1,4 +1,4 @@
-# 🎬 CMPS Film Index - Front-End
+# 🎬 CMPS Film Index - Back-End
 
 ## 📌 What is CMPS Film Index?
 
