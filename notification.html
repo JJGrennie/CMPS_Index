@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Notification App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f4f8;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      margin: 8px 0;
+      padding: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .counter {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>📢 Custom Notification</h1>
+
+  <input type="text" id="titleInput" placeholder="Enter Notification Title" />
+  <input type="text" id="messageInput" placeholder="Enter Your Message" />
+  <button id="notifyBtn">Send Notification</button>
+
+  <div class="counter">Notifications sent: <span id="count">0</span></div>
+
+  <script>
+    const notifyBtn = document.getElementById("notifyBtn");
+    const messageInput = document.getElementById("messageInput");
+    const titleInput = document.getElementById("titleInput");
+    const counterEl = document.getElementById("count");
+    const defaultIcon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Yes_check.svg/512px-Yes_check.svg.png";
+
+    let notificationCount = 0;
+
+    notifyBtn.addEventListener("click", () => {
+      const message = messageInput.value.trim();
+      const title = titleInput.value.trim() || "Notification Alert";
+
+      if (!message) {
+        alert("Please enter a message.");
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        sendNotification(title, message);
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            sendNotification(title, message);
+          } else {
+            alert("Notification permission denied.");
+          }
+        });
+      } else {
+        alert("Notification permission denied.");
+      }
+    });
+
+    function sendNotification(title, message) {
+      setTimeout(() => {
+        new Notification(title, {
+          body: message,
+          icon: defaultIcon
+        });
+
+        notificationCount++;
+        counterEl.textContent = notificationCount;
+      }, 5000); // Delay of 5 seconds
+    }
+  </script>
+</body>
+</html>
