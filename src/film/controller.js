@@ -32,7 +32,7 @@ const getFilteredFilms = (req, res) => {
 	const { genre, year } = req.query;
 
 	const { query, values } = queries.getFilteredFilms(genre, year);
-
+//Safe from SQL injection: query is parameterized using placeholders ($1, $2, ...) in getFilteredFilms
 	pool.query(query, values, (error, results) => {
 		if (error) {
 			console.error("Database Error:", error);
