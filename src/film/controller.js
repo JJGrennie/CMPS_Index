@@ -102,6 +102,5 @@ module.exports = {
     getFilmById,
     getFilteredFilms,
     addFilm,
-    updateFilm,
-    getDistinctGenres //  Exporting under new name
+    updateFilm
 };

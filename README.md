@@ -139,5 +139,4 @@ https://cmps-index.onrender.com/api/v1/film/10
 
 ##  License
 
-This project is licensed under the **MIT License**.
-- https://opensource.org/license/mit
+To filter by id type https://cmps-index.onrender.com/api/v1/film/ followed by the id number 1-20, for instance https://cmps-index.onrender.com/api/v1/film/2
